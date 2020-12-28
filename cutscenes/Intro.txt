@@ -1,0 +1,32 @@
+cole set: name Julian
+cole call: test_function 1 2 {cole.name}
+
+cole walk_to: white_box
+cole say: Hi
+
+if: cole.name == "Cole"
+	cole say: My name is {cole.name} and I walk at {cole.SPEED} m/s
+else:
+	cole say: My name is {cole.name}, somebody changed my name!
+
+choice: Do you have any questions?
+	option: How can I learn more about the framework? 
+		cole say: The documentation will be available soon!
+		cole say: Any other question?
+		
+		choice: Other question?
+			option: option A
+				cole say: you choose A
+			option: B	if: cole.name == "Julian"
+				cole say: you choose B
+			option: C
+				cole say: you choose C
+				finish
+
+	option: What am I supposed to do here? if: cole.name == "Cole"
+		cole say: Interact with the boxes, put the red on top of the white one
+		cole say: Any other question?
+	option: No, thanks!
+		cole say: Perfect! Now you can play
+		cole say: Don't forget to check the code later
+		finish

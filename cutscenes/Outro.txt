@@ -1,0 +1,6 @@
+cole say: Another box appeared!
+cole say: Let me put it on the top for you
+
+cole take: green_box
+cole walk_to: red_box
+cole use_item: green_box red_box
