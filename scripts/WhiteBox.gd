@@ -20,7 +20,7 @@ func use_item(who, what):
 	who.animate_until_finished("lower_hand")
 
 func place_box(box):
-	# Function called by who.interact(self, "place_red_box")
+	# Function called by who.interact(self, "place_box")
 	# Place the box on top of the WHITE one
 	box.transform.origin = self.transform.origin + Vector3(0, 2, 0)
 	box.position = box.transform.origin - Vector3(3, 0, 0)

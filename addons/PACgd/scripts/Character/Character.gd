@@ -1,5 +1,5 @@
 extends Interactive
-class_name Player
+class_name Character
 
 # A player is basically a queue of actions that is constantly running
 const STATES = preload("States.gd")
@@ -100,7 +100,7 @@ func talk_to(someone):
 	var to_say = someone.name + " is trying to talk with me"
 	queue.append(STATES.Say.new(self, to_say, talk_bubble, talk_bubble_timer))
 
-func wait_on_player(who:Player, message:String):
+func wait_on_player(who:Character, message:String):
 	queue.append(STATES.WaitOnPlayer.new(self, who, message))
 
 func approach(object):

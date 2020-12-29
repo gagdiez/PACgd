@@ -12,7 +12,7 @@ onready var gui = $Dialog/Choices
 # in mind where the mouse is, which object is under it, who is the
 # main player and the current action (for combining actions)
 var current_action:Action
-var player:Player
+var player:Character
 var label:RichTextLabel
 var mouse_position:Vector2
 var obj_under_mouse: Object
@@ -32,7 +32,7 @@ var mouse_offset = Vector2(8, 8)
 
 # Functions
 
-func init(_player:Player, _str2obj={}):
+func init(_player:Character, _str2obj={}):
 	# This function needs to be called by the user to set the player
 	player = _player
 	$Inventory.follow(player.inventory)
