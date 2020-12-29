@@ -18,6 +18,7 @@ func use_item(who, what):
 	who.remove_from_inventory(what)
 	who.interact(self, "place_box", [what])
 	who.animate_until_finished("lower_hand")
+	who.say("That is it, thank you for playing")
 
 func place_box(box):
 	# Function called by who.interact(self, "place_box")

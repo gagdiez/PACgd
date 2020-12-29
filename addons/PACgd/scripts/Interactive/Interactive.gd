@@ -31,3 +31,15 @@ func use_item(who:Interactive, item):
 
 func walk_to(who):
 	who.approach(self)
+
+func take(who):
+	who.approach(self)
+	who.face_object(self)
+	who.animate_until_finished("raise_hand")
+	who.interact(self, "grab")
+	who.add_to_inventory(self)
+	who.animate_until_finished("lower_hand")
+
+func grab():
+	visible = false
+	interactive = false
