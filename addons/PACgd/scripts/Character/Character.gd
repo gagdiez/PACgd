@@ -104,7 +104,7 @@ func wait_on_player(who:Character, message:String):
 	queue.append(STATES.WaitOnPlayer.new(self, who, message))
 
 func approach(object):
-	var end = navigation.get_closest_point(object.position)
+	var end = navigation.get_closest_point(object.interaction_position)
 
 	if (end - transform.origin).length() > MINIMUM_WALKABLE_DISTANCE:
 		# We actually need to walk

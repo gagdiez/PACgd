@@ -5,7 +5,7 @@ func _ready():
 	main_action = ACTIONS.take
 
 	# We have to stand a couple of pixels away from it to interact
-	position = self.transform.origin + Vector3(3, 0, 0)
+	interaction_position = self.transform.origin + Vector3(3, 0, 0)
 
 	# Description and Thumbnail
 	description = "I think that's the box I have to move"

@@ -9,7 +9,7 @@ var main_action = ACTIONS.walk_to
 var secondary_action = ACTIONS.examine
 
 # Position in space where the player will stand to interact
-onready var position = self.transform.origin
+onready var interaction_position = self.transform.origin
 
 # Thumbnail for takeable items
 onready var thumbnail = "res://addons/Point_and_Click/scripts/Interactive/default.png"

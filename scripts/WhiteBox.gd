@@ -4,7 +4,7 @@ func _ready():
 	# For the WHITE box, the main_action is (implicitly) "walk_to"
 	
 	# We have to stand a couple of pixels away from it to interact
-	position = self.transform.origin - Vector3(3, 0, 0)
+	interaction_position = self.transform.origin - Vector3(3, 0, 0)
 	
 	# Description
 	description = "The mythical white box!"
@@ -23,7 +23,7 @@ func place_box(box):
 	# Function called by who.interact(self, "place_box")
 	# Place the box on top of the WHITE one
 	box.transform.origin = self.transform.origin + Vector3(0, 2, 0)
-	box.position = box.transform.origin - Vector3(3, 0, 0)
+	box.interaction_position = box.transform.origin - Vector3(3, 0, 0)
 	box.visible = true
 	box.interactive = true
 	
