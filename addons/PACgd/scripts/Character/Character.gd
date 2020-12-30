@@ -25,6 +25,8 @@ var MINIMUM_WALKABLE_DISTANCE = 0.5
 signal player_finished
 signal message(signal_name)
 
+var doing = false
+
 # Godot functions
 func _ready():
 	main_action = ACTIONS.talk_to
@@ -40,7 +42,12 @@ func _physics_process(_delta):
 	var current_action = queue.current()
 
 	if current_action:
+		doing = true
 		current_action.run()
+	else:
+		if doing:
+			doing = false
+			emit_signal("player_finished")
 
 # Functions to modify the graphics
 func face_direction(direction):

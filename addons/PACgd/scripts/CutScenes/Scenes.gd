@@ -22,7 +22,6 @@ class ExecAction:
 			what = what.evaluate()
 		
 		action.execute(who, what)
-		who.emit_finished_signal()
 	
 	func finished():
 		who.disconnect("player_finished", self, "finished")
