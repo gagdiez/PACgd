@@ -47,7 +47,7 @@ func execute(whom, what):
 			what.call(function, whom)
 		COMBINED:
 			if combine_object != what:
-				combine_object.call(function, whom, what)
+				what.call(function, whom, combine_object)
 		INTERNAL:
 			if what is Array:
 				whom.internal(function, what)
