@@ -27,7 +27,7 @@ func examine(who):
 	return who.say(description)
 
 func use_item(who:Interactive, item):
-	who.say("I don't know how to combine " + self.oname + " with " + item.oname)
+	who.say("I don't know how to use " + self.oname + " with " + item.oname)
 
 func walk_to(who):
 	who.approach(self)
