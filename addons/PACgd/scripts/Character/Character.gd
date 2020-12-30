@@ -32,6 +32,18 @@ func _ready():
 	main_action = ACTIONS.talk_to
 	inventory = Inventory.new()
 
+	# For a player, we need to indicate its "Animation Player"
+	animation_player = $Animations
+
+	# Its talk bubble
+	talk_bubble = $"Talk Bubble"
+	talk_bubble.visible = false
+
+	talk_bubble_timer = $"Talk Bubble/Timer"
+
+	# And where to place it
+	talk_bubble_offset = Vector3(-.6, 9.5, 0)
+
 func _physics_process(_delta):
 	# Move player's bubble above they head
 	talk_bubble.rect_position = camera.unproject_position(
