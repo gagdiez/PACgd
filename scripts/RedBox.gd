@@ -13,16 +13,14 @@ func _ready():
 	description = "The box I have to move"
 	thumbnail = "res://thumbnails/red_box.png"
 
-func use_item(who, what):
-	# Since we only have one other element in the screen, <what> will be
-	# the WHITE box
-	
-	who.approach(what)
-	who.face_object(what)
+func use_item(who, on_what):
+	# Since we only have one other element in the screen, <on_what>
+	# will be the WHITE box
+	who.approach(on_what)
 	who.say("Time to place one box on top of the other")
 	who.animate_until_finished("raise_hand")
 	who.remove_from_inventory(self)
-	who.interact(self, "place_over", [what])
+	who.interact(self, "place_over", [on_what])
 	who.animate_until_finished("lower_hand")
 	who.say("That is it, thank you for playing")
 

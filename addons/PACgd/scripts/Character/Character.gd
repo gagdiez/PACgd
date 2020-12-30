@@ -120,4 +120,5 @@ func approach(object):
 
 		queue.append(STATES.Animate.new(self, "walk"))
 		queue.append(STATES.WalkPath.new(self, path))
+		queue.append(STATES.FaceObject.new(self, object))
 		queue.append(STATES.Animate.new(self, "idle"))
