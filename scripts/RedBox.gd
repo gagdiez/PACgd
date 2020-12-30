@@ -27,8 +27,7 @@ func use_item(who, what):
 	who.say("That is it, thank you for playing")
 
 func place_over(box):
-	# Function called by who.interact(self, "place_box")
-	# Place the box on top of the WHITE one
+	# Place myself on top of <box>
 	self.transform.origin = box.transform.origin + Vector3(0, 2, 0)
 	self.visible = true
 	
