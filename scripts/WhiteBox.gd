@@ -10,14 +10,13 @@ func _ready():
 	# Description
 	description = "The mythical white box!"
 
-
 func use_item(who, item):
 	# The WHITE box will interact with the RED one
 	who.approach(self)
 	who.say("Time to place one box on top of the other")
 	who.animate_until_finished("raise_hand")
 	who.remove_from_inventory(item)
-	who.interact(self, "place_red_box")
+	who.call_function_from(self, "place_red_box")
 	who.animate_until_finished("lower_hand")
 	who.say("That is it, thank you for playing")
 

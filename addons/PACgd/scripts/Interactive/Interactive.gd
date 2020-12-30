@@ -36,7 +36,7 @@ func take(who):
 	who.approach(self)
 	who.face_object(self)
 	who.animate_until_finished("raise_hand")
-	who.interact(self, "grab")
+	who.call_function_from(self, "grab")
 	who.add_to_inventory(self)
 	who.animate_until_finished("lower_hand")
 

@@ -103,7 +103,7 @@ func interrupt():
 	if queue.clear():
 		play_animation("idle")
 
-func interact(object, function, params=[]):
+func call_function_from(object, function, params=[]):
 	if not params is Array:
 		printerr("parameters should be an array")
 		return
