@@ -30,6 +30,7 @@ var walk_to = Action.new("walk_to", " ", Action.INTERACTIVE)
 
 # TO_COMBINE Actions
 var use_item = Action.new("use_item", "Use", Action.TO_COMBINE, 'with')
+var give = Action.new("receive_item", "Give", Action.TO_COMBINE, 'to')
 
 # IMMEDIATE Actions
 var say = Action.new("say", "", Action.IMMEDIATE)
