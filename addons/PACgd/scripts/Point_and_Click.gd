@@ -46,6 +46,7 @@ func click():
 			# Combine action with this object
 			current_action.combine(obj_under_mouse)
 		else:
+			label.text = ""
 			current_action.execute(player, obj_under_mouse)
 			current_action.uncombine()
 	else:
@@ -71,9 +72,14 @@ func get_object_under_mouse(mouse_pos:Vector2, RAY_LENGTH=50):
 	avoid = []
 	return
 
-func play_scene(scene_file):
+func play_scene(scene_file, addition={}):
 	# Function to play a cutscene
-	var cut_scene_player = CutScene.new(scene_file, str2obj, self)
+	var new_str2obj = str2obj.duplicate()
+	
+	for key in addition:
+		new_str2obj[key] = addition[key]
+	
+	var cut_scene_player = CutScene.new(scene_file, new_str2obj, self)
 	cut_scene_player.play()
 
 func point():
