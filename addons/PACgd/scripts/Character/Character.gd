@@ -56,10 +56,9 @@ func _physics_process(_delta):
 	if current_action:
 		doing = true
 		current_action.run()
-	else:
-		if doing:
-			doing = false
-			emit_signal("player_finished")
+	elif doing:
+		doing = false
+		emit_signal("player_finished")
 
 # Functions to modify the graphics
 func face_direction(direction):
@@ -74,9 +73,6 @@ func face_direction(direction):
 func play_animation(animation):
 	animation_player.play(animation)
 
-func player_finished():
-	emit_signal("player_finished")
-
 # Functions to populate the queue in response to clicks in objects
 func add_to_inventory(object):
 	queue.append(STATES.AddToInventory.new(self, object))
@@ -86,6 +82,13 @@ func animate(animation):
 
 func animate_until_finished(animation):
 	queue.append(STATES.AnimateUntilFinished.new(self, animation))
+
+func call_function_from(object, function, params=[]):
+	if not params is Array:
+		printerr("parameters should be an array")
+		queue.append(STATES.State.new())
+	else:
+		queue.append(STATES.InteractWithObject.new(self, object, function, params))
 
 func internal(fc, params):
 	queue.append(STATES.CallFunction.new(self, fc, params))
@@ -103,12 +106,6 @@ func interrupt():
 	if queue.clear():
 		play_animation("idle")
 
-func call_function_from(object, function, params=[]):
-	if not params is Array:
-		printerr("parameters should be an array")
-		return
-	queue.append(STATES.InteractWithObject.new(self, object, function, params))
-
 func remove_from_inventory(object):
 	queue.append(STATES.RemoveFromInventory.new(self, object))
 
@@ -119,8 +116,8 @@ func talk_to(someone):
 	var to_say = someone.name + " is trying to talk with me"
 	queue.append(STATES.Say.new(self, to_say, talk_bubble, talk_bubble_timer))
 
-func wait_on_player(who:Character, message:String):
-	queue.append(STATES.WaitOnPlayer.new(self, who, message))
+func wait_on_character(who:Character, message:String):
+	queue.append(STATES.WaitOnCharacter.new(self, who, message))
 
 func approach(object):
 	var end = navigation.get_closest_point(object.interaction_position)
@@ -134,3 +131,20 @@ func approach(object):
 		queue.append(STATES.WalkPath.new(self, path))
 		queue.append(STATES.FaceObject.new(self, object))
 		queue.append(STATES.Animate.new(self, "idle"))
+	else:
+		queue.append(STATES.State.new()) # queue nothing to keep signals working
+
+# Default answers to actions
+
+func receive_item(who, item):
+	# Remove item
+	who.animate_until_finished("raise_hand")
+	who.remove_from_inventory(item)
+	who.animate_until_finished("lower_hand")
+	who.emit_message("gave_item")
+	
+	# Take item
+	self.animate_until_finished("raise_hand")
+	self.animate_until_finished("lower_hand")
+	self.wait_on_character(who, "gave_item")
+	self.add_to_inventory(item)
