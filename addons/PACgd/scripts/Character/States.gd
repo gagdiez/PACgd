@@ -4,8 +4,6 @@ class State:
 	var who
 
 	func run():
-		printerr("ERROR: Run method not implemented")
-		push_error("ERROR: Run method not implemented")
 		finished = true
 
 
@@ -83,8 +81,9 @@ class Emit extends State:
 		message = msg
 		
 	func run():
-		who.emit_signal("message", message)
-		finished = true
+		if who.get_signal_connection_list("message"):
+			who.emit_signal("message", message)
+			finished = true
 
 
 class FaceObject extends State:
@@ -97,15 +96,6 @@ class FaceObject extends State:
 	func run():
 		var direction = object.transform.origin - who.transform.origin
 		who.face_direction(direction)
-		finished = true
-
-
-class Finished extends State:
-	func _init(_who):
-		who = _who
-	
-	func run():
-		who.emit_signal("player_finished")
 		finished = true
 
 
@@ -188,19 +178,6 @@ class SetVariable extends State:
 		finished = true
 
 
-class TalkTo extends State:
-	var whom
-	
-	func _init(_who, _whom):
-		who = _who
-		whom = _whom
-		
-	func run():
-		blocked = true
-		whom.talking(who)
-		finished = true
-
-
 class WalkPath extends State:
 	# Function to walk
 	var path = []
@@ -228,7 +205,7 @@ class WalkPath extends State:
 			finished = true
 
 
-class WaitOnPlayer extends State:
+class WaitOnCharacter extends State:
 	var whom
 	var what
 	var running = false
@@ -241,7 +218,7 @@ class WaitOnPlayer extends State:
 	func run():
 		if running:
 			return
-		
+
 		whom.connect("message", self, "received_message")
 		running = true
 	
