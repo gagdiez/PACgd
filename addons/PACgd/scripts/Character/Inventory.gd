@@ -21,3 +21,9 @@ func size():
 
 func get(idx):
 	return items[idx]
+
+func has(obj):
+	for item in items:
+		if item == obj:
+			return true
+	return false
