@@ -60,7 +60,7 @@ func _physics_process(_delta):
 		doing = false
 		emit_signal("player_finished")
 
-# Functions to modify the graphics
+# Internal Functions
 func face_direction(direction):
 	var my_pos = camera.unproject_position(transform.origin)
 	var dir = camera.unproject_position(transform.origin + direction)
@@ -69,6 +69,10 @@ func face_direction(direction):
 		$Sprite.scale.x = -1
 	else:
 		$Sprite.scale.x = 1
+
+func interrupt():
+	if queue.clear():
+		play_animation("idle")
 
 func play_animation(animation):
 	animation_player.play(animation)
@@ -102,19 +106,11 @@ func emit_finished_signal():
 func face_object(object):
 	queue.append(STATES.FaceObject.new(self, object))
 
-func interrupt():
-	if queue.clear():
-		play_animation("idle")
-
 func remove_from_inventory(object):
 	queue.append(STATES.RemoveFromInventory.new(self, object))
 
 func say(text):
 	queue.append(STATES.Say.new(self, text, talk_bubble, talk_bubble_timer))
-
-func talk_to(someone):
-	var to_say = someone.name + " is trying to talk with me"
-	queue.append(STATES.Say.new(self, to_say, talk_bubble, talk_bubble_timer))
 
 func wait_on_character(who:Character, message:String):
 	queue.append(STATES.WaitOnCharacter.new(self, who, message))
@@ -148,3 +144,12 @@ func receive_item(who, item):
 	self.animate_until_finished("lower_hand")
 	self.wait_on_character(who, "gave_item")
 	self.add_to_inventory(item)
+
+func talk_to(who):
+	who.approach(self)
+	who.emit_message("arrived")
+	
+	# Called when main_action is invoqued by the click
+	self.wait_on_character(who, "arrived")
+	self.face_object(who)
+	self.say("Hi " + who.name)

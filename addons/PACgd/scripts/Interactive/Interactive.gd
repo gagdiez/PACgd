@@ -26,7 +26,7 @@ onready var interactive = true
 func examine(who):
 	return who.say(description)
 
-func use_item(who:Interactive, item):
+func use_item(who, item):
 	who.say("I don't know how to use " + self.oname + " with " + item.oname)
 
 func walk_to(who):
@@ -34,7 +34,6 @@ func walk_to(who):
 
 func take(who):
 	who.approach(self)
-	who.face_object(self)
 	who.animate_until_finished("raise_hand")
 	who.call_function_from(self, "grab")
 	who.add_to_inventory(self)
