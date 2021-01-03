@@ -1,0 +1,12 @@
+<div class="container">
+	<nav class="navbar navbar-expand-md navbar-light bg-white">
+		<a class="navbar-brand" href="#">
+			<img src="/assets/images/logo.png" height="50" class="d-inline-block align-top" alt="">
+		</a>
+			<div class="navbar-nav sm-auto">
+			{% for item in site.data.navigation %}
+				<a class="nav-item nav-link" href="{{item.link}}">{{ item.name }}</a>
+			{% endfor %}
+			</div>
+	</nav>
+</div>

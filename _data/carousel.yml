@@ -1,0 +1,12 @@
+- image: /assets/images/pac.png
+  title: Keep Calm and Make Games
+  text: Simple to use, our plugin helps you to make point and click adventures in the Godot Engine
+  active: active
+  
+- image: /assets/images/script.png
+  title: Write Cut Scenes as in a Movie Script
+  text: Simple yet powerfull, PACs allows you to create cut scenes without wrting GDScript
+  
+- image: /assets/images/dialog.png
+  title: Complex Dialogs, Easy Writing
+  text: Write complex dialogs, with multiple decisions using a simple language
