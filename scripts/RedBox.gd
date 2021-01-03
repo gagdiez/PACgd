@@ -12,3 +12,14 @@ func _ready():
 	# Description and Thumbnail
 	description = "The box I have to move"
 	thumbnail = "res://thumbnails/red_box.png"
+
+func take(who):
+	who.approach(self)
+	who.animate_until_finished("raise_hand")
+	who.call_function_from(self, "grab")
+	who.add_to_inventory(self)
+	who.animate_until_finished("lower_hand")
+
+func grab():
+	visible = false
+	interactive = false
