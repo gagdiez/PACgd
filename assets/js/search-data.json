@@ -1,0 +1,326 @@
+{"0": {
+    "doc": "About",
+    "title": "About",
+    "content": "This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at jekyllrb.com . You can find the source code for Minima at GitHub: jekyll / minima . You can find the source code for Jekyll at GitHub: jekyll / jekyll . ",
+    "url": "http://localhost:4000/PACgd/about/",
+    "relUrl": "/about/"
+  },"1": {
+    "doc": "Home",
+    "title": "Keep Calm and Make Games",
+    "content": "Simple to use, our plugin helps you to make point and click adventures in the Godot Engine . ",
+    "url": "http://localhost:4000/PACgd/",
+    "relUrl": "/"
+  },"2": {
+    "doc": "Home",
+    "title": "Write Cut Scenes as in a Movie Script",
+    "content": "Simple yet powerfull, PACs allows you to create cut scenes without wrting GDScript . ",
+    "url": "http://localhost:4000/PACgd/",
+    "relUrl": "/"
+  },"3": {
+    "doc": "Home",
+    "title": "Complex Dialogs, Easy Writing",
+    "content": "Write complex dialogs, with multiple decisions using a simple language . ",
+    "url": "http://localhost:4000/PACgd/",
+    "relUrl": "/"
+  },"4": {
+    "doc": "Home",
+    "title": " A Plugin to Build Point and Click Games ",
+    "content": "Always wanted to develop a point and click game but didn't have the right tools? Worry no further, PACgd is here to help you. Make awesome point and click games writing a minimum of code. Just relax and focus on the gameplay while we take care of the complex code. Get started Download ",
+    "url": "http://localhost:4000/PACgd/",
+    "relUrl": "/"
+  },"5": {
+    "doc": "Home",
+    "title": " Why PACgd? ",
+    "content": "Packed With All You Need . Players, actions, cut scenes, dialogs, all ready to be used in your game . For Every User . Easy for beginners, highly flexible for experts. One plugin to rule them all . Well Documented . Extensive documentation and many tutorials will set you up in no time . ",
+    "url": "http://localhost:4000/PACgd/",
+    "relUrl": "/"
+  },"6": {
+    "doc": "Home",
+    "title": "Home",
+    "content": " ",
+    "url": "http://localhost:4000/PACgd/",
+    "relUrl": "/"
+  },"7": {
+    "doc": "Actions",
+    "title": "Actions",
+    "content": "Actions are an important part of PACgd, since they define what a Character can do with each Interactive objects. There are four types of Actions in PACgd: INTERACTIVE, IMMEDIATE, TO_COMBINE and INTERNAL. ",
+    "url": "http://localhost:4000/PACgd/docs/actions/",
+    "relUrl": "/docs/actions/"
+  },"8": {
+    "doc": "Actions",
+    "title": "Table of contents",
+    "content": ". | Interactive Actions | To-Combine Actions | Immediate Actions | Internal Actions | Empty Action | . ",
+    "url": "http://localhost:4000/PACgd/docs/actions/#table-of-contents",
+    "relUrl": "/docs/actions/#table-of-contents"
+  },"9": {
+    "doc": "Actions",
+    "title": "Interactive Actions",
+    "content": "Interactive actions are used to define the main_action and secondary_action of Interactive objects. Each Interactive action defines a method that will be called in the object when the player clicks on it. | Action | Cutscene Syntax | Method to define in Object | Default method’s code | . | ACTIONS.examine | &lt;who&gt; examine: &lt;object&gt; | examine(who) | who.say(description) | . | ACTIONS.go_to | &lt;who&gt; go_to: &lt;object&gt; | go_to(who) | - | . | ACTIONS.open | &lt;who&gt; open: &lt;object&gt; | open(who) | - | . | ACTIONS.read | &lt;who&gt; read: &lt;object&gt; | read(who) | - | . | ACTIONS.search | &lt;who&gt; search: &lt;object&gt; | search(who) | - | . | ACTIONS.take | &lt;who&gt; take: &lt;object&gt; | take(who) | see below | . | ACTIONS.talk_to | &lt;who&gt; talk_to: &lt;whom&gt; | talk_to(who) | see below | . | ACTIONS.use | &lt;who&gt; use: &lt;object&gt; | use(who) | - | . | ACTIONS.walk_to | &lt;who&gt; walk_to: &lt;object&gt; | walk_to(who) | who.approach(self) | . take: By default the Character will approach the object, move its hand and put it the object in the Inventory. The object then becomes invisible and stops being Interactive. This is the default code in the Interactive Class: . func take(who): who.approach(self) who.animate_until_finished(\"raise_hand\") who.call_function_from(self, \"grab\") who.add_to_inventory(self) who.animate_until_finished(\"lower_hand\") func grab(): visible = false interactive = false . talk_to: The talk_to function is by default only defined for Characters. It will make the player walk towards the clicked Character, and on arrival the Character will greet them. For complex dialogues we recommend to overriding the default method and play a CutScene. func talk_to(who): # Called when main_action is invoked by the click self.wait_on_character(who, \"arrived\") self.face_object(who) self.say(\"Hi \" + who.name) who.approach(self) who.emit_message(\"arrived\") . ",
+    "url": "http://localhost:4000/PACgd/docs/actions/#interactive-actions",
+    "relUrl": "/docs/actions/#interactive-actions"
+  },"10": {
+    "doc": "Actions",
+    "title": "To-Combine Actions",
+    "content": "To-combine Actions are actions that need two elements in order to be executed. So far there are 2 to-combine actions: use_item and give. use_item is set automatically by PACgd as the main_action of items in the Inventory. Meanwhile, give is to be used in CutScenes to exchange items between Characters. | Action | Cutscene Syntax | Method to define in the Object | Default code | . | ACTIONS.use_item | &lt;who&gt; use_item: &lt;item&gt; &lt;object&gt; | use_item(who, item) | who.say(\"I don't know how to use it\") | . | ACTIONS.give | &lt;who&gt; give: &lt;item&gt; &lt;to_whom&gt; | receive_item(who, item) | see below | . give: The give Action evokes the receive_item(who, item) function in the Character (who) receiving the item. By default the player will walk to the Character that implements the function, and exchange the item from one Inventory to the other. func receive_item(who, item): # Remove item who.animate_until_finished(\"raise_hand\") who.remove_from_inventory(item) who.animate_until_finished(\"lower_hand\") who.emit_message(\"gave_item\") # Take item self.animate_until_finished(\"raise_hand\") self.animate_until_finished(\"lower_hand\") self.wait_on_character(who, \"gave_item\") self.add_to_inventory(item) . ",
+    "url": "http://localhost:4000/PACgd/docs/actions/#to-combine-actions",
+    "relUrl": "/docs/actions/#to-combine-actions"
+  },"11": {
+    "doc": "Actions",
+    "title": "Immediate Actions",
+    "content": "Immediate Actions are actions executed by the Characters. | Action | Cutscene Syntax | Method | Default behavior | . | ACTIONS.say | &lt;who&gt; say: &lt;what&gt; | say(what) | Character says what | . | ACTIONS.add_to_inventory | &lt;who&gt; add_to_inventory: &lt;item&gt; | add_to_inventory(item) | Character adds the item to its Inventory | . | ACTIONS.remove_from_inventory | &lt;who&gt; remove_from_inventory: &lt;item&gt; | remove_from_inventory(item) | Character removes the item to its Inventory | . ",
+    "url": "http://localhost:4000/PACgd/docs/actions/#immediate-actions",
+    "relUrl": "/docs/actions/#immediate-actions"
+  },"12": {
+    "doc": "Actions",
+    "title": "Internal Actions",
+    "content": "Internal Actions call or modify parameters of Objects. They are helpful to set internal variables during CutScenes, or call Objects’ methods. | Action | Cutscene Syntax | Default behavior | . | ACTIONS.set | &lt;object&gt; set: &lt;variable&gt; &lt;value&gt; | object.set(variable, value) | . | ACTIONS.call | &lt;object&gt; call: &lt;function&gt; &lt;param1&gt; ... &lt;paramN&gt; | object.call(function, param1, ..., paramN) | . Important . | The Internal action set cannot create new variables. To correctly execute object.set(variable, value) or object set: variable value the object must have the property variable already defined | If the wrong number or type of parameters are used during a call, the execution of the game will continue, without failing nor halting. | . ",
+    "url": "http://localhost:4000/PACgd/docs/actions/#internal-actions",
+    "relUrl": "/docs/actions/#internal-actions"
+  },"13": {
+    "doc": "Actions",
+    "title": "Empty Action",
+    "content": "The empty action (ACTIONS.none) is a special type of Action to denote that either the main_action or secondary_action of an Object does nothing. The click will simply be ignored. ",
+    "url": "http://localhost:4000/PACgd/docs/actions/#empty-action",
+    "relUrl": "/docs/actions/#empty-action"
+  },"14": {
+    "doc": "Characters",
+    "title": "Characters",
+    "content": "In PACgd Characters area basically a queue waiting to be filled with orders. The orders are given through the Character's methods, and each order fills the queue with a set of steps to follow. As soon as the queue of a Character has an order, the Character will execute it until finishing it. ",
+    "url": "http://localhost:4000/PACgd/docs/characters/",
+    "relUrl": "/docs/characters/"
+  },"15": {
+    "doc": "Characters",
+    "title": "Table of contents",
+    "content": ". | Initializing a Character | Methods implemented in Characters | Animations implemented in Characters | . ",
+    "url": "http://localhost:4000/PACgd/docs/characters/#table-of-contents",
+    "relUrl": "/docs/characters/#table-of-contents"
+  },"16": {
+    "doc": "Characters",
+    "title": "Initializing a Character",
+    "content": "On the _ready() method of your parent node you will need to set two parameters for each Character: . | navigation: A Navigation Node, which will help the Character to find paths from one point to another on the scene. | camera: A Camera Node, which will tell the Character in which direction to look at all times. | . ",
+    "url": "http://localhost:4000/PACgd/docs/characters/#initializing-a-character",
+    "relUrl": "/docs/characters/#initializing-a-character"
+  },"17": {
+    "doc": "Characters",
+    "title": "Methods implemented in Characters",
+    "content": "In order to give orders to a Character, you will need to call one (or many) of their methods. Each method will queue a series of instructions that the Character will follow sequentially. | Method | Behavior | . | add_to_inventory(object) | Queues adding the object to the Inventory | . | animate(animation) | Queues starting the animation animation | . | animate_until_finish(animation) | Queues playing the animation animation until it ends | . | approach(object) | Queues walking towards the object | . | call_function_from(object, function, params=[]) | Queues calling object.callv(function, params) | . | internal(fc, params) | Queues calling self.callv(fc, params) | . | emit_message(message) | Queues emitting the message message | . | face_object(object) | Queues looking in the direction of the object | . | remove_from_inventory(object) | Queues removing an object from the inventory | . | say(text) | Queues saying text | . | wait_on_character(who, message) | Queues staying idle until who emits the message message | . Important . | The difference between animate and animate_until_finish is the type of animation to play. animate will start the animation and continue executing the queue of a Character. This is useful for example if we want to make a Character start walking, and stay walking until we call the animation idle. On the other hand, animate_until_finish will play an animation and wait for it to conclude before executing the queue. This is used for example to make the Character raise their hand, and wait until the animation is completed before executing an interaction with an object. | . ",
+    "url": "http://localhost:4000/PACgd/docs/characters/#methods-implemented-in-characters",
+    "relUrl": "/docs/characters/#methods-implemented-in-characters"
+  },"18": {
+    "doc": "Characters",
+    "title": "Animations implemented in Characters",
+    "content": "So far we have included 4 animations on the Character class: idle, walk, raise_hand, lower_hand. ",
+    "url": "http://localhost:4000/PACgd/docs/characters/#animations-implemented-in-characters",
+    "relUrl": "/docs/characters/#animations-implemented-in-characters"
+  },"19": {
+    "doc": "Cutscenes",
+    "title": "Writing Cutscenes",
+    "content": "Cutscenes simplify writing complex coordinated behavior and dialogues. Cutscenes are written in separate files, which are interpreted on the fly and executed one line at the time. ",
+    "url": "http://localhost:4000/PACgd/docs/cutscenes/#writing-cutscenes",
+    "relUrl": "/docs/cutscenes/#writing-cutscenes"
+  },"20": {
+    "doc": "Cutscenes",
+    "title": "Table of contents",
+    "content": ". | General Syntax | Actions . | Using variables in actions | . | Conditions | Choices | Playing CutScenes | . ",
+    "url": "http://localhost:4000/PACgd/docs/cutscenes/#table-of-contents",
+    "relUrl": "/docs/cutscenes/#table-of-contents"
+  },"21": {
+    "doc": "Cutscenes",
+    "title": "General Syntax",
+    "content": "The general syntax of a CutScene will look like this: . # Actions &lt;character&gt; &lt;action&gt;: &lt;params&gt; # Conditions if: &lt;condition&gt; &lt;lines to execute if true&gt; else: &lt;lines to execute if false&gt; # Choices choice: &lt;title&gt; option: &lt;title&gt; if: &lt;condition&gt; &lt;lines if option is selected&gt; ... option: &lt;title&gt; if: &lt;condition&gt; &lt;lines if option is selected&gt; . ",
+    "url": "http://localhost:4000/PACgd/docs/cutscenes/#general-syntax",
+    "relUrl": "/docs/cutscenes/#general-syntax"
+  },"22": {
+    "doc": "Cutscenes",
+    "title": "Actions",
+    "content": "In cutscenes we can command Characters to do different actions, for example: . cole say: Pleased to meet you cole take: object cole walk_to: object . To see the full list of Actions a Character can do, and how to write them in Cutscenes please refer to the Actions documentation. Using variables in actions . We have included the option of accessing variables in actions, to create more rich dialogues and actions. Variables can be accessed by surrounding them with {}. For example: . cole say: Pleased to meet you {character.name}, I am {cole.years} years old. If you want to set variables, then use the INTERNAL Action set (see Actions documentation). By default, all parameters of an action are of type string, surround the values in {} to use other types. For example: . cole set: strength {23} cole set: flag {true} . ",
+    "url": "http://localhost:4000/PACgd/docs/cutscenes/#actions",
+    "relUrl": "/docs/cutscenes/#actions"
+  },"23": {
+    "doc": "Cutscenes",
+    "title": "Conditions",
+    "content": "Conditions allow to create complex flows within a Cutscene by evaluating a condition and executing different actions in base to the result. For example . if: cole.strength &gt; 3 cole use: rock else: cole say: I am not strong enough . will execute cole use: rock if the variable cole.strength is greater than 3, otherwise it will execute cole say: I am not strong enough. Important . | The condition can be any valid Godot-script code, and notice that variables do not need to be surrounded by {}. | The else clause can be omitted, but the content of the if/else must be indented. | . ",
+    "url": "http://localhost:4000/PACgd/docs/cutscenes/#conditions",
+    "relUrl": "/docs/cutscenes/#conditions"
+  },"24": {
+    "doc": "Cutscenes",
+    "title": "Choices",
+    "content": "Choices allow to easily design Dialogues. A choice is composed of one or many options. Each option is composed of multiple lines that will be executed if the option is selected. options can include a if clause, meaning that the option will only show if the clause if true. By default, after executing an option the player will be presented with the choice again. To exit the choice after choosing an option use the finish keyword. Example: . choice: Do you understand? option: I do if: cole.intelligence &gt; 3 cole say: I do option: Could you explain again? cole say: Not really... option: No cole say: I will study more and come back finish . Important . | A choice can only be composed of options, and the options need to be indented | An option can include a new choice | . ",
+    "url": "http://localhost:4000/PACgd/docs/cutscenes/#choices",
+    "relUrl": "/docs/cutscenes/#choices"
+  },"25": {
+    "doc": "Cutscenes",
+    "title": "Playing CutScenes",
+    "content": "The PointClick system is in charge of playing the CutScenes. Please refer to the PointClick documentation to see how to do it. ",
+    "url": "http://localhost:4000/PACgd/docs/cutscenes/#playing-cutscenes",
+    "relUrl": "/docs/cutscenes/#playing-cutscenes"
+  },"26": {
+    "doc": "Cutscenes",
+    "title": "Cutscenes",
+    "content": " ",
+    "url": "http://localhost:4000/PACgd/docs/cutscenes/",
+    "relUrl": "/docs/cutscenes/"
+  },"27": {
+    "doc": "Interactive Objects",
+    "title": "Interactive Objects",
+    "content": "Most of the code you will be writing will be contained within Interactive Nodes. This is because, in PACgd, Interactive objects are in charge of instructing the Characters how to behave when interacting with them. ",
+    "url": "http://localhost:4000/PACgd/docs/interactive/",
+    "relUrl": "/docs/interactive/"
+  },"28": {
+    "doc": "Interactive Objects",
+    "title": "Table of contents",
+    "content": ". | Making an Object Interactive | The Interactive Class | Actions on an Object | . ",
+    "url": "http://localhost:4000/PACgd/docs/interactive/#table-of-contents",
+    "relUrl": "/docs/interactive/#table-of-contents"
+  },"29": {
+    "doc": "Interactive Objects",
+    "title": "Making an Object Interactive",
+    "content": "In order to use an object in PACgd you need two things: . | To attach an script to the Object, and extend the class Interactive | To add a CollisionShape to the Object, so the PointClick system can detect it. | . ",
+    "url": "http://localhost:4000/PACgd/docs/interactive/#making-an-object-interactive",
+    "relUrl": "/docs/interactive/#making-an-object-interactive"
+  },"30": {
+    "doc": "Interactive Objects",
+    "title": "The Interactive Class",
+    "content": "Interactive objects have six main properties: . | main_action, secondary_action: These properties determine what happens when the player clicks on the object using the primary or secondary click (left and right mouse buttons by default). | Its value has to be an Action. See actions documentation for options. | The default primary and secondary actions are ACTIONS.walk_to and ACTIONS.examine. | . | interaction_position: A Vector indicating the spatial position in which the Character must stand to interact with the object. | description: The description of the object when it is examined. | thumbnail: The thumbnail to display in the Inventory after the object is grabbed. | interactive: A Boolean flag indicating if the PointClick system should interact with the object or not. | . ",
+    "url": "http://localhost:4000/PACgd/docs/interactive/#the-interactive-class",
+    "relUrl": "/docs/interactive/#the-interactive-class"
+  },"31": {
+    "doc": "Interactive Objects",
+    "title": "Actions on an Object",
+    "content": "The main_action and secondary_action determine the methods the object needs to implement. For example, if the main action is ACTIONS.take the object must implement the method take(who) (see Action documentation). Within such method, the object must call different Characters methods in order to instruct the Character on what to do (see Character documentation). You can find examples on how to do this in our Quickstart tutorial. ",
+    "url": "http://localhost:4000/PACgd/docs/interactive/#actions-on-an-object",
+    "relUrl": "/docs/interactive/#actions-on-an-object"
+  },"32": {
+    "doc": "PointClick Object",
+    "title": "PointClick Node",
+    "content": "The PointClick Node implements all the logic of PACgd. ",
+    "url": "http://localhost:4000/PACgd/docs/pointclick/#pointclick-node",
+    "relUrl": "/docs/pointclick/#pointclick-node"
+  },"33": {
+    "doc": "PointClick Object",
+    "title": "Table of contents",
+    "content": ". | Initializing the Object | Playing CutScenes . | Important | . | . ",
+    "url": "http://localhost:4000/PACgd/docs/pointclick/#table-of-contents",
+    "relUrl": "/docs/pointclick/#table-of-contents"
+  },"34": {
+    "doc": "PointClick Object",
+    "title": "Initializing the Object",
+    "content": "On the parent object of the Godot Scene you will need to call the init method of PointClick. The function init takes two parameters: . | The Character that the player controls. | A dictionary to translate textual objects in the CutScene into Godot Nodes of the Scene. | . ",
+    "url": "http://localhost:4000/PACgd/docs/pointclick/#initializing-the-object",
+    "relUrl": "/docs/pointclick/#initializing-the-object"
+  },"35": {
+    "doc": "PointClick Object",
+    "title": "Playing CutScenes",
+    "content": "To play a CutScene, call the method play_cutscene(filename, dict) from the PointClick object. The play_cutscene method takes two parameters: . | filename: The path to the file to be player | dict: A dictionary translating strings into objects, that is used only on this cutscene. | . Important . The dictionary passed as parameter of play_cutscene is going to be used to update the dictionary defined during initiation. This can be helpful to change a definition on each play of the cutscene. See an example of this in our Complex Interaction tutorial. ",
+    "url": "http://localhost:4000/PACgd/docs/pointclick/#playing-cutscenes",
+    "relUrl": "/docs/pointclick/#playing-cutscenes"
+  },"36": {
+    "doc": "PointClick Object",
+    "title": "PointClick Object",
+    "content": " ",
+    "url": "http://localhost:4000/PACgd/docs/pointclick/",
+    "relUrl": "/docs/pointclick/"
+  },"37": {
+    "doc": "Basics",
+    "title": "QuickStart - Basics",
+    "content": "In this quickstart tutorial we will show you how to download, import, and interact with a Godot project that includes the PACgd plugin. The project contains a minimum example composed of one pre-made character with 2 boxes to interact with. The goal of the player is to stack the Red Box in top of the White Box. ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/basics/#quickstart---basics",
+    "relUrl": "/docs/quickstart/basics/#quickstart---basics"
+  },"38": {
+    "doc": "Basics",
+    "title": "Table of contents",
+    "content": ". | Download Godot | Import PACgd Quickstart Project | Understanding the Scene . | The Objects | The Code . | Level | Cole | Floor | Red Box | White Box | . | . | . ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/basics/#table-of-contents",
+    "relUrl": "/docs/quickstart/basics/#table-of-contents"
+  },"39": {
+    "doc": "Basics",
+    "title": "Download Godot",
+    "content": "If you didn’t yet, download Godot from their official website. If you have never used Godot before you might be interested in taking a quick look at their step-by-step getting started tutorial . ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/basics/#download-godot",
+    "relUrl": "/docs/quickstart/basics/#download-godot"
+  },"40": {
+    "doc": "Basics",
+    "title": "Import PACgd Quickstart Project",
+    "content": "Download the PACgd quickstart project and extract its content into a folder in your computer. Then, import the project in Godot as shown in the following image. ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/basics/#import-pacgd-quickstart-project",
+    "relUrl": "/docs/quickstart/basics/#import-pacgd-quickstart-project"
+  },"41": {
+    "doc": "Basics",
+    "title": "Understanding the Scene",
+    "content": "Once the project is imported, Godot will open and you should see a scene with a character (named Cole) and two boxes: the Red Box and the White Box. Before we dig into the scene and its components, play the game! Press F5 or the play button on the top-right corner. Take the Red box, and use it on the White one so Cole piles them. The Objects . Lets look at the objects that compose the scene, don’t worry if you don’t understand everything now, we will look at them in detail later. | Level: The level is a Spatial Godot Node. It represents the 3D scene itself, and it is the parent of all the objects you see in the screen. | Camera: The Camera node, through which the players will see our game | Cole: Cole is a pre-made Character, it is capable to walk around and do all the basic interactions a point and click game needs, i.e. “take”, “talk to”, “use item”. This is the character we will control in our game. | Floor: An StaticObject with a CollisionShape representing the floor. In simpler terms, a static rectangle that can detect collisions. | Navigation: A Navigation object is a very useful object in Godot, which takes care of computing paths between points in a surface. In our case, it computes how to walk from one point to another in the Floor. It has a NavigationMeshInstance child, which is used denote the navigable area. | PointClick: Our Point and Click interface and its logic necessary to create games. | Red Box: A simple StaticObject with a CollisionShape representing a red box. This is the box Cole has to put on top of the White Box. | White Box: A simple StaticObject with a CollisionShape representing a white box. The Red Box has to be piled on top of it. | . | . The Code . You can access the code of each object by clicking at their icon. While we will discuss all the code now, the most important scripts are those of the Red Box and White Box. Level . In our top Node Level, we start by setting two properties of our Character Cole: navigation and camera. The navigation node will guide Cole when walking around the scene, while knowing the camera’s position will help him know in which direction to look while walking. After, we call the init function from our Point and Click system PointClick. The function init takes two properties, in this tutorial we will only use the first one, which tells our Point and Click system which character the user controls. We will discuss the second parameter in the next tutorials. Cole . Cole’s script has only one line of code: extends Character, making it a object of type Character. A Character is basically a queue of instructions waiting to be filled and executed sequentially. In order to populate the queue, we use the Character methods. We will see how in just a minute. Floor . The script of the Floor is just one line: extends Floor, making our object of type Floor. If we click on the Floor, Cole will ask the Navigation for a path to go to the clicked place and walk there. All this happens automatically, so no needs to worry about it. In order for the floor to work correctly, it has to be covered by the Navigation object and its NavigationMeshInstance. In this tutorial we have already setted this up for you. Red Box . Most of the relevant code for this example is in the boxes. This is because in PACgd the Objects are the ones giving instructions to the Characters. If you click on an Interactive object, the object will call different methods in the Character to instruct they on how to behave. Lets see the code within the Red Box: . extends Interactive func _ready(): # We can take this object main_action = ACTIONS.take # The secondary_action is (implicitly) ACTIONS.examine # We have to stand a couple of pixels away from it to interact interaction_position = self.transform.origin + Vector3(3, 0, 0) # Description and Thumbnail description = \"The box I have to move\" thumbnail = \"res://thumbnails/red_box.png\" func take(who): # Called when the box is clicked who.approach(self) who.animate_until_finished(\"raise_hand\") who.call_function_from(self, \"grab\") who.add_to_inventory(self) who.animate_until_finished(\"lower_hand\") func grab(): visible = false interactive = false . In the first line we state that this object is Interactive. Interactive objects have six main properties: main_action, secondary_action, interaction_position, description, thumbnail and interactive. These properties determine: . | main_action, secondary_action: What happens when the player clicks on the object using the primary or secondary click (left and right mouse buttons by default). The default primary and secondary actions are ACTIONS.walk_to and ACTIONS.examine. | interaction_position: Where we want the Characters to stand when interacting with the object. | description: The description of the object when it is examined. | thumbnail: The thumbnail to use in the inventory after the object is grabbed. | interactive: A flag that determines if the Point and Click system can interact with the object. | . Then, in the function _ready (executed by Godot when the object is rendered), we: . | Set that the main_action is ACTIONS.take. This indicates that, when the player clicks on it, Cole has to walk towards it, and grab it. | Set its interaction_position to 3 units to its left, so Cole stands next to it before taking it. | Give it a description so the player can examine it with the secondary click. | Set its thumbnail, to be shown when the box is in the inventory. | . Since the main_action is ACTIONS.take, when clicked, the object will call its method take(who). The method take in the Red Box calls a series of methods in Cole (who). Each method adds instructions to the queue of Cole, and him processes them one at the time in sequencial order. Lets see the methods called, and what they mean: . | who.approach(self): Approach self, this is, approach the Red Box | who.animate_until_finished(\"raise_hand\"): After arriving, Cole will raise his hand to take the object | who.call_function_from(self, \"grab\"): queues the instruction of calling the method grab() in self (the Red Box). Red Box.grab() will render the box invisible, and not interactive. | who.add_to_inventory(self): Adds the item to Cole’s Inventory | who.animate_until_finished(\"lower_hand\"): Cole lowers his hand | . In this way, the Red Box instructs Cole on the steps to follow in order to take it. White Box . Finally, we have the code in the White box: . extends Interactive func _ready(): # The main_action is (implicitly) \"walk_to\" # The secondary_action is (implicitly) ACTIONS.examine # We have to stand a couple of pixels away from it to interact interaction_position = self.transform.origin - Vector3(3, 0, 0) # Description description = \"The mythical white box!\" func use_item(who, item): # The WHITE box will interact with the RED one who.approach(self) who.say(\"Time to place one box on top of the other\") who.animate_until_finished(\"raise_hand\") who.remove_from_inventory(item) who.call_function_from(self, \"place_red_box\") who.animate_until_finished(\"lower_hand\") who.say(\"That is it, thank you for playing\") func place_red_box(): # Function called by who.queue_interaction_with(self, \"place_red_box\") var red_box = $\"../Red Box\" red_box.transform.origin = self.transform.origin + Vector3(0, 2, 0) red_box.visible = true # Change its main action, so you cannot \"use\" it anymore red_box.main_action = ACTIONS.walk_to # The boxes are not interactive anymore self.interactive = false red_box.interactive = false . As with the Red Box, we extend the class Interactive and set its properties. The main_action of the White Box is ACTIONS.walk_to, meaning that when clicked, Cole will simply walk towards the box. Since we want to use an item on the White box, we need to define the function use_item. The function use_item(who, item) is called when a Character (who) uses an item on the White Box. In this quickstart we know that who is Cole since we only have one Character, and that the item is the Red Box, since we only have one another Interactive object in the Scene. On each line of use_item we call methods of the Character who in order to populate its queue. In particular we ask Cole to: . | who.approach(self): Approach self, this is, approach the White Box | who.say(\"Time to place one box on top of the other\"): Say something | who.animate_until_finished(\"raise_hand\"): Raise his hand | who.remove_from_inventory(item): Remove the item from inventory, in this case, item is the Red Box | who.call_function_from(self, \"place_red_box\"): Call the function place_red_box from self. This is, call White Box.place_red_box(). | who.animate_until_finished(\"lower_hand\"): Lower his hand | who.say(\"That is it, thank you for playing\"): Say something | . ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/basics/#understanding-the-scene",
+    "relUrl": "/docs/quickstart/basics/#understanding-the-scene"
+  },"42": {
+    "doc": "Basics",
+    "title": "Basics",
+    "content": " ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/basics/",
+    "relUrl": "/docs/quickstart/basics/"
+  },"43": {
+    "doc": "Complex Interaction",
+    "title": "QuickStart - Character Interaction",
+    "content": "As you saw on previous tutorials, PACgd simplifies creating interactions between Characters and Objects. In this tutorial we will see how to create Interactions between two or more Characters. ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/complex_interactions/#quickstart---character-interaction",
+    "relUrl": "/docs/quickstart/complex_interactions/#quickstart---character-interaction"
+  },"44": {
+    "doc": "Complex Interaction",
+    "title": "Table of contents",
+    "content": ". | Import PACgd Quickstart - Character Interaction | Understanding the Scene . | The Objects | The Code - Interaction Between Characters | . | . ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/complex_interactions/#table-of-contents",
+    "relUrl": "/docs/quickstart/complex_interactions/#table-of-contents"
+  },"45": {
+    "doc": "Complex Interaction",
+    "title": "Import PACgd Quickstart - Character Interaction",
+    "content": "Download the PACgd example projects and extract its content into a folder in your computer. Then, import the project “Character_Interaction” in Godot. ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/complex_interactions/#import-pacgd-quickstart---character-interaction",
+    "relUrl": "/docs/quickstart/complex_interactions/#import-pacgd-quickstart---character-interaction"
+  },"46": {
+    "doc": "Complex Interaction",
+    "title": "Understanding the Scene",
+    "content": "Once the project is imported, Godot will open and you should see a scene with two character (Cole and Shadow Cole) and three boxes: Red Box, Green Box, and White Box. Before we dig into the scene and its components, play the game! Press F5 or the play button on the top-right corner. The Objects . The objects in this scene are the same as in our Cutscene tutorial, with the addition of Shadow cole . The Code - Interaction Between Characters . The main addition of this project is the code in Shadow Cole: . func use_item(who, item): # Called when &lt;WHO&gt; uses &lt;ITEM&gt; on me # Cole approaches Shadow Cole who.approach(self) who.emit_message(\"arrived\") # Shadow Cole waits until Cole arrives and looks at him self.wait_on_character(who, \"arrived\") self.face_object(who) if item != $\"../Green Box\": self.say(\"No, please give me the green box\") return # Cole moves hand and remove from inventory who.animate_until_finished(\"raise_hand\") who.remove_from_inventory(item) who.animate_until_finished(\"lower_hand\") # Shadow Cole moves hand and add to inventory self.animate_until_finished(\"raise_hand\") self.add_to_inventory(item) self.animate_until_finished(\"lower_hand\") self.say(\"Thanks\") $\"../Red Box\".use_item(self, item) #-&gt; it populates the queue of Shadow Cole self.emit_message(\"box_placed\") # Cole waits and says thank you who.wait_on_character(self, \"box_placed\") who.say(\"That's it, now you can check the code!\") who.say(\"Thanks for being interested in our work\") who.emit_message(\"finished_talking\") # Shadow Cole waits says thank you self.wait_on_character(who, \"finished_talking\") self.say(\"We are sure you will make awesome games!\") . You will notice that the code has calls like who.emit_message() and who.wait_on_character(). What are these?. Well, in Godot, each Character is running on its own thread, therefore, if we populate the queues of each subject, they will start running their own tasks immediately. Sometimes however, we want one Character to wait for a certain event before starting to act. In this game for example, we want Shadow Cole to say “Hi” only after Cole is next to him. For this we populate the queue of Cole with the task of emitting the message \"arrived\" after finishing walking. Meanwhile, we populate the queue of Shadow Cole with the task of waiting for Cole’s message before starting to talk. Once again, this is because each Character is running their own tasks simultaneously. emit_message and wait_on_character are ways to coordinate events across Characters, so they can act based on each other actions. This can actually be greatly simplified by using a CutScene. Uncomment the second version of use_item in Shadow Cole: . func use_item(who, item): $\"../PointClick\".play_scene('res://cutscenes/ShadowBox.txt', {\"item\":item}) . will execute the following Cutscene: . cole walk_to: shadow_cole if: item != green_box shadow_cole say: No, please give me the Green Box else: cole give: green_box shadow_cole shadow_cole say: Thanks shadow_cole use_item: green_box red_box cole say: That's it, now you can check the code! cole say: Thanks for being interested in our work shadow_cole say: We are sure you will make awesome games! . Notice how play_scene has a second parameter {\"item\":item}?. This is our way of defining item only for this execution of the CutScene ShadowBox. Important . | Remember that CutScenes execute one line at the time, making it simpler to describe actions that need to happen one after the other. Meanwhile, emit_message and wait_on_character are designed to coordinate Characters, allowing them to do actions simultaneously, up to a point when they coordinate. | . ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/complex_interactions/#understanding-the-scene",
+    "relUrl": "/docs/quickstart/complex_interactions/#understanding-the-scene"
+  },"47": {
+    "doc": "Complex Interaction",
+    "title": "Complex Interaction",
+    "content": " ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/complex_interactions/",
+    "relUrl": "/docs/quickstart/complex_interactions/"
+  },"48": {
+    "doc": "Cutscenes",
+    "title": "QuickStart - Cutscenes",
+    "content": "As you saw on our previous Quickstart tutorial, PACgd readily gives you the components needed to create a Point and Click game. However, what is a P&amp;C game without dialogues? In this tutorial we will see how PACgd helps you to create Cutscenes and ues. ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/cutscenes/#quickstart---cutscenes",
+    "relUrl": "/docs/quickstart/cutscenes/#quickstart---cutscenes"
+  },"49": {
+    "doc": "Cutscenes",
+    "title": "Table of contents",
+    "content": ". | Import PACgd Quickstart - Cutscenes | Understanding the Scene . | The Objects | The Cutscenes | The Code . | Level | Boxes | . | . | . ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/cutscenes/#table-of-contents",
+    "relUrl": "/docs/quickstart/cutscenes/#table-of-contents"
+  },"50": {
+    "doc": "Cutscenes",
+    "title": "Import PACgd Quickstart - Cutscenes",
+    "content": "Download the PACgd example projects and extract its content into a folder in your computer. Then, import the project “Cutscenes” in Godot. ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/cutscenes/#import-pacgd-quickstart---cutscenes",
+    "relUrl": "/docs/quickstart/cutscenes/#import-pacgd-quickstart---cutscenes"
+  },"51": {
+    "doc": "Cutscenes",
+    "title": "Understanding the Scene",
+    "content": "Once the project is imported, Godot will open and you should see a scene with a Character named Cole, and three boxes: Red Box, Green Box, and White Box. Before we dig into the scene and its components, play the game! Press F5 or the play button on the top-right corner. You will notice that this time Cole automatically starts to talk, move, and that a choice appears. After exploring the possibilities, and piling the boxes, come back and we will guide you through the code. The Objects . The objects in this scene are mostly the same as in our Quickstart tutorial, with the sole addition of the Green Box . The Cutscenes . The main addition of this project are the files in the cutscene folder. To see them, make right-click in the cutscene folder, on the FileSystem tab, and click in Open in File Manager. You will find two files: Intro.txt and Outro.txt. These plain-text files represent Cutscenes. Cutscenes are a special type of script we have designed for PACgd. They offer a simple way to write complex cutscenes and dialogues between characters. In a Cutscene Characters can walk around, take objects, and talk with each other. Also, Cutscenes can change depending on some external conditions, or choices presented to the player. Lets look at the content of Intro.txt: . cole say: Hi, welcome to this example on how to use our plugin cole set: name Cole if: cole.name == \"Cole\" cole say: My name is {cole.name} else: cole say: My name is {cole.name}, somebody changed my name! cole walk_to: white_box cole say: Do you have any questions? choice: Do you have any questions? option: How can I learn more about the framework? cole say: Check the documentation! cole say: Also, did you know that you can make multiple choices? choice: Did you know? option: I did not cole say: Really? option: I changed your name if: cole.name != \"Cole\" cole say: I see you did option: I knew it! cole say: Perfect finish option: What am I supposed to do here? if: cole.name == \"Cole\" cole say: Interact with the boxes, put the red on top of the white one cole say: Any other question? option: No, thanks! cole say: Perfect! Now you can play cole say: Don't forget to check the code later finish . If you read it, you will notice that: . | It describes what Cole did when you played the game, and the choices you were presented with! | It uses a friendly language! | . We made Cutscene to simplify automatizing actions in the game, while allowing to create complex dialogues and choices. Check the CutScene documentation to see all that can be done in a Cutscene. Change the line cole set: name Cole and give Cole a different name, and see how the game changes when you play it again. Then come back and we will show the code necessary to run the Cutscenes in a game. The Code . Level . In terms of code, the main difference with respect to the Quickstart tutorial is the addition of the following code in our Level Node: . var name_to_object = {\"cole\": $Cole, \"white_box\": $\"Boxes/White Box\", \"red_box\": $\"Boxes/Red Box\", \"green_box\":$\"Boxes/Green Box\"} $PointClick.init($Cole, name_to_object) # When the game starts, we play the intro CutScene $PointClick.play_scene(\"res://cutscenes/Intro.txt\") . The dictionary name_to_object allows to translate each line in the CutScene into Nodes in the Scene. In this way, we know that cole in the CutScene is the Node $Cole in our Godot Scene. The last line commands the PointClick system to play the scene. When a Cutscene starts the PointClick system disables all the inputs from the player. Boxes . The code in the boxes is quite similar to that of our Quickstart tutorial. Perhaps the most interesting addition is in the White Box which includes the commented line who.call_function_from(self, \"play_outro\"). If you uncomment the line, after piling the red box, Cole will call the function play_outro from the White Box, which in turn will play the Outro.txt scene. As you can see, CutScenes can be started from any object by simply invoking the method PointClick.play_scene(filename). ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/cutscenes/#understanding-the-scene",
+    "relUrl": "/docs/quickstart/cutscenes/#understanding-the-scene"
+  },"52": {
+    "doc": "Cutscenes",
+    "title": "Cutscenes",
+    "content": " ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/cutscenes/",
+    "relUrl": "/docs/quickstart/cutscenes/"
+  },"53": {
+    "doc": "QuickStart",
+    "title": "QuickStart",
+    "content": "If you are reading this, you are probably thinking about developing a Point and Click game in Godot. Well, you have come to the right place. PACgd is a plugin for the Godot game engine that simplifies making P&amp;C games. If you have never heard of Godot, it is a free-to-use and open source game engine. While it is not necessary to be an expert in Godot to follow these tutorials, we will assume you know how to use its basic interface to navigate between objects and files. ",
+    "url": "http://localhost:4000/PACgd/docs/quickstart/quickstart/",
+    "relUrl": "/docs/quickstart/quickstart/"
+  }
+}
