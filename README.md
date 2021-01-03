@@ -4,10 +4,10 @@ PAC<sup>GD</sup> is a Point and Click system built with the user in mind. Our ma
 
 ![Screenshots](./thumbnails/scene.png)
 
-### Documentation
+## Documentation
 You can find all the documentation in the PACgd [website](https://gagdiez.github.io/PACgd/)
 
-### A More Complex Example
+## A More Complex Example
 You may want to visit [https://github.com/gagdiez/personal_godot](https://github.com/gagdiez/personal_godot) to find a more complex example on how to use the plugin.
 
 ![Screenshots](https://github.com/gagdiez/personal_godot/blob/master/addons/screenshots.png)
