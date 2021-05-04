@@ -1,54 +1,121 @@
+.btn{
+  margin: 0 8px 0 0;
+  font-weight:600;
+}
+
+.btn-primary{
+  background-color:#f57a87;
+  border-color:#f57a87;
+}
+
+.btn-primary:hover{
+  background-color:#ff9c6b;
+  border-color:#ff9c6b;
+}
+
+.btn-secondary{
+  background-color:#478cbf;
+  border-color:#478cbf;
+}
+
+.btn-secondary:hover{
+  background-color:#47b9bf;
+  border-color:#47b9bf;
+}
+
 .bg_darkblue{
-	background-color:#202531;
+	background-color:#f4f4f4;
+	z-index:0;
 }
 
-.carousel{
-	min-height:395px;
-}
-
-.carousel-caption h1{
-	text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-	margin-bottom:0;
-}
-
-.carousel-caption p{
-	text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+.bg-navbar{
+	background-color:#fff;
+	box-shadow: 0 0 4px 0 rgb(196, 196, 196);
+	z-index:1;
 }
 
 .carousel-inner>.item {
-    -webkit-transition: -webkit-transform 1.2s ease-in-out !important;
-    -o-transition: -o-transform 1.2s ease-in-out !important;
-    transition: transform 1.2s ease-in-out !important;
-}
-
-img{
-	max-width:1110px;
+  -webkit-transition: -webkit-transform 1.2s ease-in-out !important;
+  -o-transition: -o-transform 1.2s ease-in-out !important;
+  transition: transform 1.2s ease-in-out !important;
 }
 
 .card{
 	border:0;
+	background-color:inherit;
 }
 
 .card-deck{
 	margin:20px 10px;
 }
 
+.card-img-top{
+	height:170px;
+}
 
-.card-deck img{
+.card-img-top img{
 	max-width:330px;
 	max-height:170px;
-	background-color:#555;
+}
+
+.features{
+	text-align: center;
+	background-color: #f7f7f7;
+	border-top: 2px solid #dce5ec;
+	border-bottom: 2px solid #dce5ec;
 }
 
 .footer{
-	margin:40px 0 0 0;
-    position:relative;
-    bottom:0;
-    width:100%;
+  position:relative;
+  bottom:0;
+  width:100%;
 }
 
-.footer .container{
-	padding: 5px 30px 15px 30px;
+.godot{
+  color: #478cbf;
+  font-family: Montserrat;
+  font-weight: 800;
+}
+
+.main-title{
+	text-align: centered;
+}
+
+.carousel p{
+  text-align:center;
+}
+
+.luna{
+  color: #cc148d;
+}
+
+.main-text{
+	padding: 50px 0 50px 0;
+	text-align: justify;
+}
+
+.pac{
+  color: #f57a87;
+  font-family: Montserrat;
+  font-weight: 800;
+}
+
+.start-now{
+  text-align:center;
+  margin:20px 0 10px 0;
+}
+
+.start-now button{
+  font-size:1.5em;
+}
+
+
+.gagdiez{
+  color:#478cbf;
+}
+
+.jekyll{
+  color:#3f1f1f;
 }
 
 h1, h2, h3, h4, h5 {

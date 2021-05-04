@@ -2,7 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Home</title>
+    <meta property="og:title" content="Point and Click Plugin for Godot">
+		<meta property="og:description" content="The simplest way to create your Point and Click game!">
+    <meta property="og:image" content="https://gagdiez.github.io/PACgd/assets/images/pac.png">
+    <title>PACgd - A Point and Click system for Godot</title>
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&display=swap" rel="stylesheet"> 
@@ -10,104 +13,137 @@
     <script src="./assets/js/bootstrap.min.js"></script>
   </head>
   <body>
-	<div class="container">
-	<nav class="navbar navbar-expand-md navbar-light bg-white">
-		<a class="navbar-brand" href="#">
-			<img src="assets/images/logo.png" height="50" class="d-inline-block align-top" alt="">
+	<nav class="navbar navbar-light bg-navbar static-top">
+	<div class="container-fluid justify-content-between">
+  	<a class="navbar-brand" href="#">
+			<img src="assets/images/logo.png" alt="PACgd Logo">
 		</a>
-			<div class="navbar-nav sm-auto">
+		
+		<div class="navbar-nav flex-row">
 			
-				<a class="nav-item nav-link" href="docs/quickstart/quickstart">Docs</a>
+				<a href="docs/quickstart/quickstart">
+				  <button type="button" class="btn btn-secondary"> Docs</button>
+				</a>
 			
-				<a class="nav-item nav-link" href="https://github.com/gagdiez/PACgd">Download</a>
+				<a href="https://github.com/gagdiez/PACgd">
+				  <button type="button" class="btn btn-primary"> Download</button>
+				</a>
 			
-			</div>
-	</nav>
-</div>
+		</div>
 
-    <div id="main_carousel" class="carousel slide text-center bg_darkblue" data-ride="carousel" data-interval="6000">
-  <div class="carousel-inner">
-  
-		<div class="carousel-item active">
-    	<img src="assets/images/pac.png" alt="...">
-			<div class="carousel-caption d-none d-md-block">
-      	<h1>Keep Calm and Make Games</h1>
-        <p>Simple to use, our plugin helps you to make point and click adventures in the Godot Engine</p>
-      </div>
-		</div>
-	
-		<div class="carousel-item ">
-    	<img src="assets/images/script.png" alt="...">
-			<div class="carousel-caption d-none d-md-block">
-      	<h1>Write Cut Scenes as in a Movie Script</h1>
-        <p>Simple yet powerfull, PACs allows you to create cut scenes without wrting GDScript</p>
-      </div>
-		</div>
-	
-		<div class="carousel-item ">
-    	<img src="assets/images/dialog.png" alt="...">
-			<div class="carousel-caption d-none d-md-block">
-      	<h1>Complex Dialogs, Easy Writing</h1>
-        <p>Write complex dialogs, with multiple decisions using a simple language</p>
-      </div>
-		</div>
-	
   </div>
-</div>
+</nav>
 
-<div class="container" style="padding: 60px 0 70px 0; text-align: center;">
-    <h1> A Plugin to Build Point and Click Games </h1>
-    
-    <p>
-    Always wanted to develop a point and click game but didn't have the right
-    tools? Worry no further, PACgd is here to help you. Make awesome point and
-    click games writing a minimum of code. Just relax and focus on the gameplay
-    while we take care of the complex code.
-    </p>
 
-    <a href="./docs/quickstart/quickstart">
-        <button type="button" class="btn btn-primary"> Get started </button>
-    </a>
-    <a href="https://github.com/gagdiez/PACgd">
-        <button type="button" class="btn btn-light"> Download </button>
-    </a>
-</div>
+    <section id="main_carousel" class="carousel slide text-center my-4"
+		     data-ride="carousel" data-interval="6000">
 
-<div class="container">
-	<h1> Why PACgd? </h1>
-	<div class="card-deck text-center">
-	
-	  <div class="card">
-			<img src="assets/images/complete.png" class="card-img-top">
-			<div class="card-body">
-		  	<h4 class="card-title">Packed With All You Need</h4>
-			  <p class="card-text">Players, actions, cut scenes, dialogs, all ready to be used in your game</p>
-			</div>
+
+			<div class="carousel-inner">
+			
+				<div class="carousel-item active">
+					<img class="img-fluid img-gallery" src="assets/images/pac.png" alt="...">
+				  <div class="container mt-4">   
+						<h1 class="main-title">A <span class="godot"> Godot Plugin </span> to Build <span class="pac"> Point and Click </span> Games</h1>
+						<p>Simple to use, our plugin helps you to make point and click adventures in the Godot Engine</p>
+					 
+						<div class="start-now">
+							<a href="./docs/quickstart/quickstart">
+								<button type="button" class="btn btn-secondary"> Get Started! </button>
+							</a>
+						</div>
+					</div>		
+				</div>
+			
+				<div class="carousel-item ">
+					<img class="img-fluid img-gallery" src="assets/images/script.png" alt="...">
+				  <div class="container mt-4">   
+						<h1 class="main-title">Write <span class="godot">Cut Scenes</span> as <span class="pac">Movie Scripts</span></h1>
+						<p>Simple yet powerfull, PACs allows you to create cut scenes without writing GDScript</p>
+					 
+						<div class="start-now">
+							<a href="./docs/quickstart/quickstart">
+								<button type="button" class="btn btn-secondary"> Get Started! </button>
+							</a>
+						</div>
+					</div>		
+				</div>
+			
+				<div class="carousel-item ">
+					<img class="img-fluid img-gallery" src="assets/images/dialog.png" alt="...">
+				  <div class="container mt-4">   
+						<h1 class="main-title"><span class="godot">Complex Dialogs</span>, <span class="pac">Easy Writing</span></h1>
+						<p>Write complex dialogs, with multiple decisions using a simple language</p>
+					 
+						<div class="start-now">
+							<a href="./docs/quickstart/quickstart">
+								<button type="button" class="btn btn-secondary"> Get Started! </button>
+							</a>
+						</div>
+					</div>		
+				</div>
+			
+		</div>		
+		<a class="carousel-control-prev" href="#main_carousel" role="button" data-slide="prev">
+		  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		  <span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#main_carousel" role="button" data-slide="next">
+		  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		  <span class="sr-only">Next</span>
+		</a>
+</section>
+
+<section class="features pt-3 pb-2">
+  <div class="container">   
+    <div class="row card-deck">
+		  
+			  <div class="col-lg-4">
+				  <div class="card mx-auto mb-5 mb-lg-0 mb-lg-3">
+				    <img src="assets/images/complete.png">
+					  <div class="card-body">
+						  <h4 class="card-title">Packed With All You Need</h4>
+							<p class="card-text">Players, actions, cut scenes, dialogs, all ready to be used in your game</p>
+						</div>
+					</div>
+				</div>
+			
+			  <div class="col-lg-4">
+				  <div class="card mx-auto mb-5 mb-lg-0 mb-lg-3">
+				    <img src="assets/images/users.png">
+					  <div class="card-body">
+						  <h4 class="card-title">For Every User</h4>
+							<p class="card-text">Easy for beginners, highly flexible for experts. One plugin to rule them all</p>
+						</div>
+					</div>
+				</div>
+			
+			  <div class="col-lg-4">
+				  <div class="card mx-auto mb-5 mb-lg-0 mb-lg-3">
+				    <img src="assets/images/documentation.png">
+					  <div class="card-body">
+						  <h4 class="card-title">Well Documented</h4>
+							<p class="card-text">Extensive documentation and many tutorials will set you up in no time</p>
+						</div>
+					</div>
+				</div>
+			 
 	  </div>
-	
-	  <div class="card">
-			<img src="assets/images/users.png" class="card-img-top">
-			<div class="card-body">
-		  	<h4 class="card-title">For Every User</h4>
-			  <p class="card-text">Easy for beginners, highly flexible for experts. One plugin to rule them all</p>
-			</div>
-	  </div>
-	
-	  <div class="card">
-			<img src="assets/images/documentation.png" class="card-img-top">
-			<div class="card-body">
-		  	<h4 class="card-title">Well Documented</h4>
-			  <p class="card-text">Extensive documentation and many tutorials will set you up in no time</p>
-			</div>
-	  </div>
-	
 	</div>
-</div>
+</section>
 
-    <footer class="footer bg-light">
-	<div class="container" style="height:10px"> Made by gagdiez, powered by Jekyll </div>
+    <footer class="footer">
+	<h5 class="container text-center pt-3">
+    <p> Made by <a href="https://twitter.com/gagdiez" class="gagdiez"> gagdiez </a>
+        in collaboration with <a class="luna" href="http://renjs.net/"> lunafromthemoon </a> <p>
+    <p> Powered by <a class="jekyll" href="https://jekyllrb.com/"> Jekyll </span> </p>
+	</h5>
 </footer>
 
+
+<!-- Bootstrap core JS-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 
   </body>
 </html>
