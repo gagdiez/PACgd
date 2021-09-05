@@ -1,0 +1,17 @@
+<nav class="navbar navbar-light bg-navbar static-top">
+	<div class="container-fluid justify-content-between">
+  	<a class="navbar-brand" href="#">
+			<img src="assets/images/logo.png" alt="PACgd Logo">
+		</a>
+		
+		<div class="navbar-nav flex-row">
+			{% for item in site.data.navigation %}
+				<a href="{{item.link}}">
+				  <button type="button" class="btn btn-{{item.type}}"> {{ item.name }}</button>
+				</a>
+			{% endfor %}
+		</div>
+
+  </div>
+</nav>
+

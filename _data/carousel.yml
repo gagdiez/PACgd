@@ -1,0 +1,12 @@
+- image: assets/images/pac.png
+  title: A <span class="godot"> Godot Plugin </span> to Build <span class="pac"> Point and Click </span> Games
+  text: Simple to use, our plugin helps you to make point and click adventures in the Godot Engine
+  active: active
+  
+- image: assets/images/script.png
+  title: Write <span class="godot">Cut Scenes</span> as <span class="pac">Movie Scripts</span>
+  text: Simple yet powerfull, PACs allows you to create cut scenes without writing GDScript
+  
+- image: assets/images/dialog.png
+  title: <span class="godot">Complex Dialogs</span>, <span class="pac">Easy Writing</span>
+  text: Write complex dialogs, with multiple decisions using a simple language

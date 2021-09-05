@@ -1,0 +1,7 @@
+- name: Docs
+  link: docs/quickstart/quickstart
+  type: secondary
+- name: Download
+  link: https://github.com/gagdiez/PACgd
+  type: primary
+

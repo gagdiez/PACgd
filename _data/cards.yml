@@ -1,0 +1,12 @@
+- image: assets/images/complete.png
+  title: Packed With All You Need
+  text: Players, actions, cut scenes, dialogs, all ready to be used in your game
+  active: active
+  
+- image: assets/images/users.png
+  title: For Every User
+  text: Easy for beginners, highly flexible for experts. One plugin to rule them all
+  
+- image: assets/images/documentation.png
+  title: Well Documented
+  text: Extensive documentation and many tutorials will set you up in no time 
