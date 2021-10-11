@@ -60,9 +60,6 @@
 
 .features{
 	text-align: center;
-	background-color: #f7f7f7;
-	border-top: 2px solid #dce5ec;
-	border-bottom: 2px solid #dce5ec;
 }
 
 .footer{
@@ -120,7 +117,6 @@
 
 h1, h2, h3, h4, h5 {
 	font-family: 'Lato', sans-serif;
-	text-align:center;
 }
 
 p {
