@@ -1,5 +1,5 @@
 # Default parameters
-func interaction_position(obj): obj.transform.origin
+func interaction_position(obj): return obj.transform.origin
 func oname(obj): return str(obj.name)
 func interactive(obj): return true
 
