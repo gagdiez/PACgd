@@ -17,10 +17,6 @@ var label:RichTextLabel
 var mouse_position:Vector2
 var obj_under_mouse: Object
 
-# During the game there will be objects you want the P&C to avoid. For example,
-# if you are in one room, you want the system to ignore objects in another room
-var avoid:Array = []
-
 # For cutscenes we need to be able to translate text into objects in the game
 var str2obj: Dictionary
 
@@ -62,7 +58,7 @@ func click():
 		current_action.uncombine()
 
 
-func get_object_under_mouse(mouse_pos:Vector2, RAY_LENGTH=50, to_avoid=avoid):
+func get_object_under_mouse(mouse_pos:Vector2, RAY_LENGTH=50, avoid=[]):
 	# Function to retrieve which object is under the mouse
 
 	# Get the space
@@ -70,11 +66,10 @@ func get_object_under_mouse(mouse_pos:Vector2, RAY_LENGTH=50, to_avoid=avoid):
 	
 	# Create a ray from the camera pointing towards the mouse
 	var ray: Dictionary = {}
-	to_avoid = Array(to_avoid) # To make a copy
 	
 	if space is Physics2DDirectSpaceState:
 		# Get the object with the highest z_index
-		var intersections = space.intersect_point(mouse_pos, 2, to_avoid, 2147483647, true, true)
+		var intersections = space.intersect_point(mouse_pos, 2, avoid, 2147483647, true, true)
 
 		for obj in intersections:
 			if ray:
@@ -94,11 +89,11 @@ func get_object_under_mouse(mouse_pos:Vector2, RAY_LENGTH=50, to_avoid=avoid):
 		var pac = ray['collider'] is Interactive
 		var pac2d = ray['collider'] is Interactive2D
 
-		if (pac or pac2d)  and ray['collider'].interactive:
+		if (pac or pac2d) and ray['collider'].interactive:
 			return ray['collider']
 		else:
-			to_avoid.append(ray['collider'])
-			return get_object_under_mouse(mouse_pos, RAY_LENGTH, to_avoid)
+			avoid.append(ray['collider'])
+			return get_object_under_mouse(mouse_pos, RAY_LENGTH, avoid)
 	return
 
 
