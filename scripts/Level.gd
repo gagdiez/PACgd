@@ -5,10 +5,10 @@ extends Spatial
 func _ready():
 	# For the players, we need to define their "navigation" and "camera"
 	# properties.
-	# -The Navigation NODE will guide our character through the level, telling
-	#  him which paths to follow to go from one place to the other
-	# -The Camera lets the player know which direction he should be facing when
-	#  moving around 
+	# - The Navigation node will guide our character through the level, telling
+	#   him which paths to follow to go from one place to the other
+	# - The Camera lets the player know which direction he should be facing when
+	#   moving around 
 	$Cole.navigation = $Navigation
 	$Cole.camera = $Camera
 	
