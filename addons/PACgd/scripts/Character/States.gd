@@ -11,7 +11,7 @@ class State:
 class AddToInventory extends State:
 	var object_to_take
 	
-	func _init(_who, _object_to_take):
+	func _init(_who,_object_to_take):
 		object_to_take = _object_to_take
 		who = _who
 		
@@ -25,7 +25,7 @@ class Animate extends State:
 	var animation
 	var player
 	
-	func _init(_who, _animation):
+	func _init(_who,_animation):
 		who = _who
 		animation = _animation
 	
@@ -38,7 +38,7 @@ class AnimateUntilFinished extends State:
 	var animation
 	var player
 	
-	func _init(_who, _animation):
+	func _init(_who,_animation):
 		who = _who
 		animation = _animation
 		player = who.animation_player
@@ -46,11 +46,11 @@ class AnimateUntilFinished extends State:
 	func run():
 		blocked = true
 		who.play_animation(animation)
-		if not player.is_connected("animation_finished", self, "animation_finished"):
-			player.connect("animation_finished", self, "animation_finished")
+		if not player.is_connected("animation_finished",Callable(self,"animation_finished")):
+			player.connect("animation_finished",Callable(self,"animation_finished"))
 	
 	func animation_finished(_arg):
-		player.disconnect("animation_finished", self, "animation_finished")
+		player.disconnect("animation_finished",Callable(self,"animation_finished"))
 		finished = true
 
 
@@ -58,7 +58,7 @@ class CallFunction extends State:
 	var fc
 	var params
 	
-	func _init(_who, _fc, _params):
+	func _init(_who,_fc,_params):
 		who = _who
 		fc = _fc
 		params = _params
@@ -76,7 +76,7 @@ class Emit extends State:
 	
 	var message
 	
-	func _init(_who, msg):
+	func _init(_who,msg):
 		who = _who
 		message = msg
 		
@@ -89,7 +89,7 @@ class Emit extends State:
 class FaceObject extends State:
 	var object
 	
-	func _init(_who, _object):
+	func _init(_who,_object):
 		who = _who
 		object = _object
 	
@@ -104,7 +104,7 @@ class InteractWithObject extends State:
 	var function
 	var params
 	
-	func _init(_who, obj, fn, _params=[]):
+	func _init(_who,obj,fn,_params=[]):
 		who = _who
 		object = obj
 		function = fn
@@ -120,7 +120,7 @@ class InteractWithObject extends State:
 class RemoveFromInventory extends State:
 	var to_remove
 	
-	func _init(_who, object):
+	func _init(_who,object):
 		to_remove = object
 		who = _who
 		
@@ -135,7 +135,7 @@ class Say extends State:
 	var label
 	var said = false
 	
-	func _init(_who, _what, how_long):
+	func _init(_who,_what,how_long):
 		who = _who
 		what = _what
 	
@@ -147,7 +147,7 @@ class Say extends State:
 		who.say_now(what)
 		var timer = who.get_tree().create_timer(1.0)
 
-		timer.connect("timeout", self, "quiet")
+		timer.connect("timeout",Callable(self,"quiet"))
 		said = true
 
 	func quiet():
@@ -160,7 +160,7 @@ class SetVariable extends State:
 	var what
 	var value
 	
-	func _init(_whom, _what, _value):
+	func _init(_whom,_what,_value):
 		whom = _whom
 		what = _what
 		value = _value
@@ -178,8 +178,8 @@ class WalkPath extends State:
 	# Function to walk
 	var path = []
 	var path_idx = 0
-	 
-	func _init(_who, _path):
+
+	func _init(_who,_path):
 		who = _who
 		path = _path
 
@@ -194,7 +194,9 @@ class WalkPath extends State:
 				run()
 			else:
 				# Move the character
-				who.move_and_slide(move_vec.normalized() * who.SPEED)
+				who.set_velocity(move_vec.normalized() * who.SPEED)
+				who.move_and_slide()
+				who.velocity
 				who.face_direction(move_vec)
 		else:
 			# There is no more path to walk
@@ -206,7 +208,7 @@ class WaitOnCharacter extends State:
 	var what
 	var running = false
 	
-	func _init(_who, _whom, _what):
+	func _init(_who,_whom,_what):
 		who = _who
 		whom = _whom
 		what = _what
@@ -215,10 +217,10 @@ class WaitOnCharacter extends State:
 		if running:
 			return
 
-		whom.connect("message", self, "received_message")
+		whom.connect("message",Callable(self,"received_message"))
 		running = true
 	
 	func received_message(message):
 		if message == what:
-			whom.disconnect("message", self, "received_message")
+			whom.disconnect("message",Callable(self,"received_message"))
 			finished = true

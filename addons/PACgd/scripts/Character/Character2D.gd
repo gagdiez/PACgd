@@ -13,9 +13,9 @@ var navigation
 var inventory = Inventory.new()
 
 # Their NODE has an animation player, a sprite, and a talk bubble
-onready var animation_player = $Animations
-onready var talk_bubble = $TalkBubble
-onready var sprite = $Sprite
+@onready var animation_player = $Animations
+@onready var talk_bubble = $TalkBubble
+@onready var sprite = $Sprite2D
 
 # They have a speed, and they don't move if the destination is close
 var SPEED = 5
@@ -45,7 +45,7 @@ func _physics_process(_delta):
 		doing = false
 		emit_signal("player_finished")
 
-func get_world():
+func get_world_3d():
 	return get_world_2d()
 
 # Internal Functions
@@ -97,9 +97,6 @@ func internal(fc, params):
 func emit_message(signal_message):
 	queue.append(STATES.Emit.new(self, signal_message))
 
-func emit_finished_signal():
-	queue.append(STATES.Finished.new(self))
-
 func face_object(object):
 	queue.append(STATES.FaceObject.new(self, object))
 
@@ -113,7 +110,7 @@ func wait_on_character(who:Character, message:String):
 	queue.append(STATES.WaitOnCharacter.new(self, who, message))
 
 func approach(object):
-	assert(navigation != null, "You forgot to set the navigation of " + oname)
+	assert(navigation != null) #,"You forgot to set the navigation of " + oname)
 	
 	if not object.interaction_position: return
 	

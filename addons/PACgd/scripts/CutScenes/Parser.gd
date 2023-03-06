@@ -29,8 +29,7 @@ func parse_file(_scene_file, _str2obj):
 			return []
 	
 	# Parses all the lines of a file
-	var file = File.new()
-	file.open(_scene_file, File.READ)
+	var file = FileAccess.open(_scene_file, FileAccess.READ)
 	lines = Array(file.get_as_text().split('\n', false))
 	file.close()
 
@@ -43,7 +42,7 @@ func parse(lines):
 	# Parses an array of lines and transform thems into scenes
 	var scenes = []
 	
-	while not lines.empty():
+	while not lines.is_empty():
 		var scene
 
 		var line = lines[0]
@@ -70,7 +69,7 @@ func remove_white_lines(lines):
 	# Remove empty from a String Array
 	var not_white_lines = []
 	
-	while not lines.empty():
+	while not lines.is_empty():
 		var line = lines.pop_front()
 		if line.dedent():
 			not_white_lines.append(line)
@@ -141,7 +140,7 @@ func parse_action(line):
 				return []
 			
 			var combine = Action.new(real_action.function, real_action.text,
-									 real_action.type, real_action.nexus)
+									real_action.type, real_action.nexus)
 			combine.combine(str2obj[obj1])
 	
 			return SCENES.ExecAction.new(whom, combine, str2obj[obj2])
@@ -153,7 +152,7 @@ func parse_choice(lines):
 	var choice_ident = identation(line)
 	
 	var options = []
-	while not lines.empty() and identation(lines[0]) > choice_ident:
+	while not lines.is_empty() and identation(lines[0]) > choice_ident:
 		options.append(parse_option(lines))
 
 	return SCENES.Choice.new(title, options)
@@ -177,15 +176,13 @@ func parse_option(lines):
 		return []
 
 	var actions = []
-	while not lines.empty() and identation(lines[0]) > option_ident:
+	while not lines.is_empty() and identation(lines[0]) > option_ident:
 		actions.append(lines.pop_front())
 	
 	var scenes = parse(actions)
 	
 	# Check if the last scene is finish, if not, make it a return
-	var last_scene = scenes[-1]
-
-	if not last_scene is SCENES.ChoiceFinish:
+	if scenes[-1].name != 'Finish':
 		scenes.append(SCENES.ChoiceReturn.new())
 
 	var title = two_point_split[1]
@@ -201,14 +198,14 @@ func parse_if(condition, lines):
 	var line = lines.pop_front()
 	var if_indent = identation(line)
 	
-	while not lines.empty() and identation(lines[0]) > if_indent:
+	while not lines.is_empty() and identation(lines[0]) > if_indent:
 		line = lines.pop_front()
 		iftrue.append(line)
 
 	if lines[0].dedent().split(':')[0] == 'else':
 		lines.pop_front()
 		
-		while not lines.empty() and identation(lines[0]) > if_indent:
+		while not lines.is_empty() and identation(lines[0]) > if_indent:
 			line = lines.pop_front()
 			iffalse.append(line)
 

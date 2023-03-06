@@ -7,15 +7,14 @@ var queue = preload("Queue.gd").Queue.new()
 
 # They know where the camera is, where they can walk
 var camera
-var navigation
 
 # They have an inventory
 var inventory = Inventory.new()
 
 # Their NODE has an animation player, a sprite, and a talk bubble
-onready var animation_player = $Animations
-onready var talk_bubble = $TalkBubble
-onready var sprite = $Sprite
+@onready var animation_player = $Animations
+@onready var talk_bubble = $TalkBubble
+@onready var sprite = $Sprite2D
 
 # 3D characters have an offset for their bubble that helps to position it in the scene
 var talk_bubble_offset = Vector3(0, 0, 0)
@@ -98,9 +97,6 @@ func internal(fc, params):
 func emit_message(signal_message):
 	queue.append(STATES.Emit.new(self, signal_message))
 
-func emit_finished_signal():
-	queue.append(STATES.Finished.new(self))
-
 func face_object(object):
 	queue.append(STATES.FaceObject.new(self, object))
 
@@ -114,17 +110,22 @@ func wait_on_character(who:Character, message:String):
 	queue.append(STATES.WaitOnCharacter.new(self, who, message))
 
 func approach(object):
-	assert(navigation != null, "You forgot to set the navigation of " + oname)
+	var navigation = get_world_3d().get_navigation_map()
+	assert(navigation != null, "You forgot to set a navigation map")
 
-	if not object.interaction_position: return
+	if object.interaction_position == null: return
 
-	var end = navigation.get_closest_point(object.interaction_position)
+	var begin = NavigationServer3D.map_get_closest_point(navigation, transform.origin)
+	var end = NavigationServer3D.map_get_closest_point(navigation, object.interaction_position)
 
-	if (end - transform.origin).length() > MINIMUM_WALKABLE_DISTANCE:
+	if (end - begin).length() > MINIMUM_WALKABLE_DISTANCE:
 		# We actually need to walk
-		var begin = navigation.get_closest_point(transform.origin)
-		var path = navigation.get_simple_path(begin, end, true)
-
+		var path: PackedVector3Array = NavigationServer3D.map_get_path(
+			navigation,
+			begin,
+			end,
+			true
+		)
 		queue.append(STATES.Animate.new(self, "walk"))
 		queue.append(STATES.WalkPath.new(self, path))
 		queue.append(STATES.FaceObject.new(self, object))

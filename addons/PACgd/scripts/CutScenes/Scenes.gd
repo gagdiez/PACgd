@@ -5,13 +5,13 @@ class ExecAction:
 	var name = 'ExecAction'
 	signal scene_finished
 	
-	func _init(_who, _action, _what):
+	func _init(_who,_action,_what):
 		who = _who
 		action = _action
 		what = _what
 	
 	func play():
-		who.connect("player_finished", self, "finished")
+		who.connect("player_finished",Callable(self,"finished"))
 		
 		if what is Array:
 			for i in range(what.size()):
@@ -24,7 +24,7 @@ class ExecAction:
 		action.execute(who, what)
 	
 	func finished():
-		who.disconnect("player_finished", self, "finished")
+		who.disconnect("player_finished",Callable(self,"finished"))
 		emit_signal("scene_finished", [])
 
 
@@ -35,7 +35,7 @@ class Option:
 	var condition = []
 	var eval = ExpressionEvaluator.new()
 	
-	func _init(_text, _scenes, _condition, _str2obj):
+	func _init(_text,_scenes,_condition,_str2obj):
 		text = _text
 		scenes = _scenes
 		condition = _condition
@@ -53,7 +53,7 @@ class Choice:
 	var to_show = []
 	signal scene_finished
 	
-	func _init(_title, opts):
+	func _init(_title,opts):
 		title = _title
 		options = opts
 	
@@ -65,18 +65,20 @@ class Choice:
 				to_show.append(opt)
 
 		choice_handler.show_choice(title, to_show)
-		choice_handler.connect("choice_made", self, "finished")
+		choice_handler.connect("choice_made",Callable(self,"finished"))
 	
 	func finished(chosen_idx):
-		choice_handler.disconnect("choice_made", self, "finished")
+		choice_handler.disconnect("choice_made",Callable(self,"finished"))
 
 		var option = to_show[chosen_idx]
 	
 		emit_signal("scene_finished", option.scenes)
 
+
 class ChoiceReturn:
 	var name = 'Return'
 	pass
+
 
 class ChoiceFinish:
 	var name = 'Finish'
@@ -86,8 +88,9 @@ class ChoiceFinish:
 class Condition:
 	var cond
 	var str2obj
-	
-	func _init(condition, _str2obj):
+	var name = 'Condition'
+
+	func _init(condition,_str2obj):
 		cond = condition
 		str2obj = _str2obj
 	
@@ -121,7 +124,7 @@ class If:
 	
 	signal scene_finished
 	
-	func _init(_str2obj, cond, iftrue, iffalse):
+	func _init(_str2obj,cond,iftrue,iffalse):
 		condition = cond
 		if_true_scenes = iftrue
 		if_false_scenes = iffalse
@@ -130,7 +133,7 @@ class If:
 	func play():
 		if eval.evaluate(condition, str2obj.keys(), str2obj.values()):
 			emit_signal("scene_finished", if_true_scenes)
-		elif not if_false_scenes.empty():
+		elif not if_false_scenes.is_empty():
 			emit_signal("scene_finished", if_false_scenes)
 		emit_signal("scene_finished", [])
 
@@ -140,8 +143,9 @@ class Variable:
 	var to_evaluate = []
 	var str2obj
 	var eval = ExpressionEvaluator.new()
+	var name = 'Variable'
 	
-	func _init(_variable, _str2obj):
+	func _init(_variable,_str2obj):
 		variable = _variable
 		str2obj = _str2obj
 		

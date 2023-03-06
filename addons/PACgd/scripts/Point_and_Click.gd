@@ -5,8 +5,8 @@ extends Node2D
 
 # But if you are curious on how the whole thing works, then go ahead and check
 # the code! It's quite cool actually - Signed: The person who wrote the code
-onready var ACTIONS = preload("Actions/Actions.gd").new()
-onready var gui = $Dialog/Choices
+@onready var ACTIONS = preload("Actions/Actions.gd").new()
+@onready var gui = $Dialog/Choices
 
 # This is a point and click game, sounds fair to have all the time
 # in mind where the mouse is, which object is under it, who is the
@@ -62,12 +62,12 @@ func get_object_under_mouse(mouse_pos:Vector2, RAY_LENGTH=50, avoid=[]):
 	# Function to retrieve which object is under the mouse
 
 	# Get the space
-	var space = player.get_world().direct_space_state
+	var space = player.get_world_3d().direct_space_state
 	
 	# Create a ray from the camera pointing towards the mouse
 	var ray: Dictionary = {}
 	
-	if space is Physics2DDirectSpaceState:
+	if space is PhysicsDirectSpaceState2D:
 		# Get the object with the highest z_index
 		var intersections = space.intersect_point(mouse_pos, 2, avoid, 2147483647, true, true)
 
@@ -79,11 +79,13 @@ func get_object_under_mouse(mouse_pos:Vector2, RAY_LENGTH=50, avoid=[]):
 				ray = obj
 	else:
 		# In 3D we need to project from the camera
-		assert(player.camera != null, "You forgot to set the camera of " + player.oname)
+		assert(player.camera != null)
 
 		var from = player.camera.project_ray_origin(mouse_pos)
 		var to = from + player.camera.project_ray_normal(mouse_pos) * RAY_LENGTH
-		ray = space.intersect_ray(from, to, avoid)
+		var query = PhysicsRayQueryParameters3D.create(from, to)
+		query.set_exclude(avoid)
+		ray = space.intersect_ray(query)
 	
 	if ray:
 		var pac = ray['collider'] is Interactive
@@ -110,7 +112,7 @@ func play_scene(scene_file, addition={}):
 
 func point():
 	# On every single frame we check what's under the mouse
-	label.rect_position = mouse_position + mouse_offset
+	label.position = mouse_position + mouse_offset
 	label.text = current_action.text
 	
 	if obj_under_mouse:

@@ -14,7 +14,7 @@ func show_choice(title, options):
 	
 	var ttl = Label.new()
 	ttl.text = title
-	ttl.add_color_override("font_color", Color(0, 1, 1))
+	ttl.add_theme_color_override("font_color", Color(0, 1, 1))
 	self.add_child(ttl)
 	
 	var idx = 0
@@ -22,7 +22,7 @@ func show_choice(title, options):
 		var lb = LinkButton.new()
 		lb.text = option.text
 		lb.underline = LinkButton.UNDERLINE_MODE_NEVER
-		lb.connect("pressed", self, "option_chosed", [idx])
+		lb.connect("pressed",Callable(self,"option_chosed").bind(idx))
 		self.add_child(lb)
 		idx += 1
 

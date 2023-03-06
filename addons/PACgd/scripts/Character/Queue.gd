@@ -8,8 +8,8 @@ class Queue:
 		else:
 			queue.append(state)
 	
-	func empty():
-		return queue.empty()
+	func is_empty():
+		return queue.is_empty()
 
 	func current():
 		if queue:

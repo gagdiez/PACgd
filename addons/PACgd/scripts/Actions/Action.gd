@@ -14,8 +14,7 @@ var orig_type
 var combine_object
 var nexus = ""
 
-func _init(_func: String, _text:String, _type: String,
-		   _nexus: String = ""):
+func _init(_func: String, _text:String, _type: String, _nexus: String = ""):
 	function = _func
 	text = _text
 	orig_text = _text
@@ -35,7 +34,7 @@ func uncombine():
 
 func execute(whom, what):
 	
-	if not function:
+	if function == null:
 		return
 	
 	whom.interrupt()
