@@ -1,25 +1,27 @@
-extends Interactive
+extends PACInteractive
 
 func _ready():
-	# We can take this object
-	main_action = ACTIONS.take
-	
-	# The secondary_action is (implicitly) ACTIONS.examine
+	id = "red_box"
 
-	# We have to stand a couple of pixels away from it to interact
-	interaction_position = self.transform.origin + Vector3(3, 0, 0)
+	# We can take this object
+	main_action = PAC.actions.take
+
+	# The secondary_action is (implicitly) PAC.actions.examine
+	# Where to stand to interact: the InteractionPoint marker in the scene
 
 	# Description and Thumbnail
 	description = "The box I have to move"
-	thumbnail = "res://thumbnails/red_box.png"
+	thumbnail = preload("res://thumbnails/red_box.png")
+
 
 func take(who):
 	who.approach(self)
-	who.animate_until_finished("raise_hand")
-	who.call_function_from(self, "grab")
+	who.animate_until_finished(who.anim_raise_hand)
+	self.run(grab)
 	who.add_to_inventory(self)
-	who.animate_until_finished("lower_hand")
+	who.animate_until_finished(who.anim_lower_hand)
+
 
 func grab():
-	visible = false
+	self.visible = false
 	interactive = false
